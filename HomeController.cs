@@ -44,42 +44,6 @@ namespace Lab20.Controllers
             ViewBag.Name = r.FirstName;
             ViewBag.Phone = r.Phone;
             return View(r);
-
-        }
-
-        [HttpPost]
-        public ActionResult SaveToDataBase(Register r)
-        {
-            Console.WriteLine(r.FirstName);
-            try
-            {
-                using (DBRegisterContext CustData = new DBRegisterContext())
-                {
-                    CustData.Entries.Add(
-                        new Register()
-                        {
-                            FirstName = r.FirstName,
-                            Email = r.Email,
-                        });
-                    try
-                    {
-                        CustData.SaveChanges();
-                    }
-                    catch(Exception e)
-                    {
-                        ViewBag.Message = e;
-                        return View("Error");
-                    }
-                    return View("Success");
-                }
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = "There was an error in your input" + ex.GetBaseException();
-                return View("Error");
-            }
-
-
         }
     }
 }
